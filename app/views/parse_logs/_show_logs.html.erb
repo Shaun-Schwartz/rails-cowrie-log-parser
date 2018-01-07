@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card">
+  <small> Number of entries: <%= @logs.count %></small>
+  <% @logs.each do |log| %>
+    <div class="card-block">
+      <p class="card-text", style="margin: 15px;">
+
+      Time:</b> <%= log.time %> <br>
+      <small>IP: <%= log.ip_address %> </small><br>
+      <small>Username: <%= log.username %> </small><br>
+      <small>Password: <%= log.password %> </small><br>
+      <small>Log in attempt originated from:
+        <% if !log.region.empty? %>
+          <%= log.region %>,
+        <% end %>
+        <% if !log.country.empty? %>
+          <%= log.country %>
+        <% end %>
+      </small>
+      <% if Rails.application.assets.find_asset(
+        "flags/#{log.country}.png") != nil %>
+        <%= image_tag "flags/#{log.country}.png",
+            height: "20" %>
+
+      <% end %>
+
+      </p>
+    </div>
+  <% end %>
+
+  </div>
+</div>
