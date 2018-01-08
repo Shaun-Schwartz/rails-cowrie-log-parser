@@ -4,7 +4,7 @@ class ParseLogsController < ApplicationController
   require 'json'
 
   FILE = './cowrie.json'
-  # FILE = '/home/shaun/cowrie/logs/cowrie.json'
+  # FILE = '/home/shaun/cowrie/log/cowrie.json'
   TIME_REGEX = /(?<=\().*(?=\))/ # matches everything between brackets
   IP_REGEX = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
   API_URL = 'http://freegeoip.net/json/'
