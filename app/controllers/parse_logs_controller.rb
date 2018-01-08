@@ -35,13 +35,13 @@ class ParseLogsController < ApplicationController
             location = geolocation(jsonline['src_ip'])
             region = location[0, location.index(',')]
             country = location[location.index(', ')+2.. -1]
-            Log.create(time: jsonline['timestamp'],
+            Log.create(time: jsonline['timestamp'].gsub("\u0000", ''),
                       status: jsonline['eventid'],
                       protocol: jsonline['protocol'],
                       ip_address: jsonline['src_ip'],
-                      message: jsonline['message'],
-                      username: jsonline['username'],
-                      password: jsonline['password'],
+                      message: jsonline['message'].gsub("\u0000", ''),
+                      username: jsonline['username'].gsub("\u0000", ''),
+                      password: jsonline['password'].gsub("\u0000", ''),
                       region: region,
                       country: country)
           end
