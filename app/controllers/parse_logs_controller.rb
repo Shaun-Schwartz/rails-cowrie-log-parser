@@ -4,7 +4,7 @@ class ParseLogsController < ApplicationController
   require 'json'
 
   FILE = './cowrie.json'
-  FILE = '/home/shaun/cowrie/logs/cowrie.json'
+  # FILE = '/home/shaun/cowrie/logs/cowrie.json'
   TIME_REGEX = /(?<=\().*(?=\))/ # matches everything between brackets
   IP_REGEX = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
   API_URL = 'http://freegeoip.net/json/'
@@ -27,7 +27,7 @@ class ParseLogsController < ApplicationController
       if count == 1000
         break
       else
-        jsonline = JSON.parse(line..gsub("\u0000"))
+        jsonline = JSON.parse(line.gsub("\u0000"))
         if jsonline['timestamp'] > last_log_time
           if (jsonline['eventid'].include? 'cowrie.login') && (jsonline['protocol'] = 'ssh')
             # String interpolation to return region and country separately
