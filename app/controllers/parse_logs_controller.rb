@@ -27,14 +27,15 @@ class ParseLogsController < ApplicationController
       if count == 1000
         break
       else
-        jsonline = JSON.parse(line.gsub("\u0000"))
-        if jsonline['timestamp'] > last_log_time
-          if (jsonline['eventid'].include? 'cowrie.login') && (jsonline['protocol'] = 'ssh')
+        jsonline = JSON.parse(line.gsub("\u0000", ''))
+        if (jsonline['protocol'] = 'ssh') && (jsonline['timestamp'] > last_log_time)
+          if (jsonline['eventid'].include? 'cowrie.login')
+            p count
             # String interpolation to return region and country separately
             location = geolocation(jsonline['src_ip'])
             region = location[0, location.index(',')]
             country = location[location.index(', ')+2.. -1]
-            Log.create(time: jsonline['timestamp']
+            Log.create(time: jsonline['timestamp'],
                       status: jsonline['eventid'],
                       protocol: jsonline['protocol'],
                       ip_address: jsonline['src_ip'],
