@@ -18,7 +18,7 @@ class ParseLogsController < ApplicationController
 
   # Save to and load from db
   def parse_logs_db(file)
-    f = File.open(file,'r')
+    f = File.open(file, 'r:ISO-8859-1:UTF-8')
     last_log_time = Log.count > 0 ? Log.last.time : '0' # 0 needed if db is empty
     count = 0
     f.each do |line|
@@ -33,7 +33,7 @@ class ParseLogsController < ApplicationController
             location = geolocation(jsonline['src_ip'])
             region = location[0, location.index(',')]
             country = location[location.index(', ')+2.. -1]
-            Log.create(time: jsonline['timestamp'],
+            Log.create(time: jsonline['timestamp'].gsub("\u0000", '')
                       status: jsonline['eventid'],
                       protocol: jsonline['protocol'],
                       ip_address: jsonline['src_ip'],
