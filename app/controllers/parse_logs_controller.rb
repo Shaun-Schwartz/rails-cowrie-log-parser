@@ -29,10 +29,12 @@ class ParseLogsController < ApplicationController
         jsonline = JSON.parse(line.gsub("\u0000", ''))
         if (jsonline['protocol'] = 'ssh') && (jsonline['timestamp'] > last_log_time)
           if (jsonline['eventid'].include? 'cowrie.login')
-            if Log.last.ip_address == jsonline['src_ip']
-              region = Log.last.region
-              country = Log.last.country
-              p region, country
+            if Log.find_by ip_address:jsonline['src_ip']
+              existingLog = Log.find_by ip_address:jsonline['src_ip']
+              p existingLog
+              region = existingLog.region
+              country = existingLog.country
+              # p region, country
             else
               count += 1
               p count
