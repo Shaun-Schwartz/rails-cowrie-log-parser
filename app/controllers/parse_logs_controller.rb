@@ -60,7 +60,8 @@ class ParseLogsController < ApplicationController
 
   def index
     parse_logs_db(FILE)
-    @logs = Log.all.order(time: :desc)
+    # @logs = Log.all.order(time: :desc)
+    @logs = Log.all.order(time: :desc).paginate(:page => params[:page], :per_page => 500)
   end
 
   def hour
