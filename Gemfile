@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.1.0'
+gem 'delayed_job_active_record'
 
 
 group :development, :test do
