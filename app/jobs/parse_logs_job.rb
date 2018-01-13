@@ -41,4 +41,5 @@ class ParseLogsJob < ApplicationJob
     get_location_data = JSON.parse(response)
     # return get_location_data
   end
+  ParseLogsJob.set(wait:5.minutes).perform_later
 end
