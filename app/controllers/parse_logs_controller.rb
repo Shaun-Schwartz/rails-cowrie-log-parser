@@ -1,5 +1,5 @@
 class ParseLogsController < ApplicationController
-  require 'generate_log.rb'
+  # require 'generate_log.rb'
   before_action :check_jobs
 
   def index
@@ -16,6 +16,11 @@ class ParseLogsController < ApplicationController
 
   def week
     @logs = Log.where(time: (Time.now - 7.days)..Time.now).order(time: :desc).paginate(:page => params[:page], :per_page => 500)
+  end
+
+  def by
+    @ip_address = params[:ip]
+    @logs = Log.where(ip_address: @ip_address).order(time: :desc)
   end
 
   def check_jobs

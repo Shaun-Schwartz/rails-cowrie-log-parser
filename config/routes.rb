@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get('/hour', { to: 'parse_logs#hour' })
   get('/day', { to: 'parse_logs#day' })
   get('/week', { to: 'parse_logs#week' })
+  get('/by', { to: 'parse_logs#by', as: 'by'})
 
 end
