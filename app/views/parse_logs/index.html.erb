@@ -1,1 +1,22 @@
-<%= render 'show_logs' %>
+<div class="container">
+  <div class="card">
+
+    <h6>Most seen IP addresses</h6>
+    <div class="Table">
+      <div class="Table-row Table-header">
+        <div class="Table-row-item">Seen</div>
+        <div class="Table-row-item">IP Address</div>
+        <div class="Table-row-item">Country</div>
+      </div>
+      <% @top_ips.each do |ip| %>
+
+        <div class="Table-row">
+          <div class="Table-row-item" data-header="Count"><%= ip.count %></div>
+          <div class="Table-row-item" data-header="IP"> <%= link_to ip.ip_address, by_path(ip: ip.ip_address) %></div>
+          <div class="Table-row-item" data-header="Country"><%= ip.country %></div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

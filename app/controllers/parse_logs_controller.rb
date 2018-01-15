@@ -3,6 +3,12 @@ class ParseLogsController < ApplicationController
   before_action :check_jobs
 
   def index
+    @top_ips = Log.find_by_sql("SELECT COUNT(*), ip_address, region, country
+                                FROM logs GROUP BY(ip_address, region, country)
+                                ORDER BY COUNT(ip_address) DESC LIMIT 25;")
+  end
+
+  def all
     @logs = Log.all.order(time: :desc).paginate(:page => params[:page], :per_page => 500)
   end
 

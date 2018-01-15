@@ -13,9 +13,34 @@
  *= require_tree .
  *= require_self
  */
+$light-color: #ffffff;
+$dark-color: #f2f2f2;
 
-.navbar {
+.Table {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  border: 1px solid $dark-color;
+  font-size: 1rem;
+  margin: 0.5rem;
+  line-height: 1.5;
+}
+.Table-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  // align-items: flex-start;
+  &:nth-of-type(even) { background-color: $dark-color; }
+  &:nth-of-type(odd) { background-color: $light-color; }
+}
 
+.Table-row-item {
+  width: 25%;
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.1em;
 }
 
 @import 'bootstrap';
