@@ -11,6 +11,9 @@
       </small><br>
       <small>Username: <%= log.username %> </small><br>
       <small>Password: <%= log.password %> </small><br>
+      <% if log.session_length %>
+        <small>Session length: <%= (log.session_length).ceil %> seconds</small><br>
+      <% end %>
       <small>Log in attempt originated from:
         <% if !log.region&.empty? %>
           <%= log.region %>,
