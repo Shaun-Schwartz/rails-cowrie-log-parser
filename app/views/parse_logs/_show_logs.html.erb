@@ -12,10 +12,10 @@
       <small>Username: <%= log.username %> </small><br>
       <small>Password: <%= log.password %> </small><br>
       <small>Log in attempt originated from:
-        <% if !log.region.empty? %>
+        <% if !log.region&.empty? %>
           <%= log.region %>,
         <% end %>
-        <% if !log.country.empty? %>
+        <% if !log.country&.empty? %>
           <%= log.country %>
         <% end %>
       </small>
