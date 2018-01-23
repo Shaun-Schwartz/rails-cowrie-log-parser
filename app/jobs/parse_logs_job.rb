@@ -14,9 +14,7 @@ class ParseLogsJob < ApplicationJob
       jsonline = JSON.parse(line.gsub('\u0000', ''))
       if (jsonline['eventid'].include? 'cowrie.login') && (jsonline['protocol'] = 'ssh') && (jsonline['timestamp'] > last_log_time)
         if Log.find_by ip_address:jsonline['src_ip']
-          existingLog = Log.find_by ip_address:jsonline['src_ip']
-          region = existingLog.region
-          country = existingLog.country
+          get_existing_location_data(jsonline['src_ip'])
         else
           location = geolocation(jsonline['src_ip'])
           region = location['region_name']
@@ -37,6 +35,11 @@ class ParseLogsJob < ApplicationJob
         get_session_length(jsonline['session'], jsonline['duration'])
       end
     end
+  end
+  def get_existing_location_data(ip_address)
+    existingLog = Log.find_by ip_address:ip_address
+    region = existingLog.region
+    country = existingLog.country
   end
   def geolocation(ip_address)
     url = 'http://freegeoip.net/json/' + ip_address.to_s
