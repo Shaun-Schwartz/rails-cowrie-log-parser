@@ -17,6 +17,9 @@
           <div class="Table-row-item" data-header="Country"><%= ip.country %></div>
         </div>
       <% end %>
+      <%= line_chart Log.group_by_hour_of_day(:created_at).count %>
+      <%= geo_chart Log.group(:country).count %>
+
     </div>
 
   </div>
