@@ -8,7 +8,7 @@ class ParseLogsController < ApplicationController
     @last_day = Log.where(time: (Time.now - 24.hour)..Time.now).count
     @top_ips = Log.find_by_sql("SELECT COUNT(*), ip_address, region, country
                                 FROM logs GROUP BY(ip_address, region, country)
-                                ORDER BY COUNT(ip_address) DESC LIMIT 25;")
+                                ORDER BY COUNT(ip_address) DESC LIMIT 10;")
   end
 
   def all
