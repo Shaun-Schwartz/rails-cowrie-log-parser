@@ -35,7 +35,7 @@ gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'delayed_job_active_record'
-gem "chartkick"
+gem 'chartkick'
 gem 'groupdate'
 
 group :development, :test do
