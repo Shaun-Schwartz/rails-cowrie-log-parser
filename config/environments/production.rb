@@ -1,5 +1,5 @@
 Rails.application.configure do
-
+   config.webpacker.check_yarn_integrity = false
   # Don't throw error if asset is not found in pipeline
   config.assets.unknown_asset_fallback = true
 

@@ -6,26 +6,11 @@
     <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag    'application' %>
   </head>
 
-  <div class="container">
-      <div class="navbar-container">
-        <nav class="nav navbar-light bg-faded">
-            <%= link_to 'Home', home_path, class: "navbar-brand",
-              title:
-              "Intrusion attempts in the last 5 minutes: #{@last_5_minutes}
-Intrusion attempts in the last hour: #{@last_hour}
-Intrusion attempts in the last 24 hours: #{@last_day}"
-              %>
-            <%= link_to 'All', all_path, class: "nav-link" %>
-            <%= link_to 'Hour',     hour_path, class: "nav-link"  %>
-            <%= link_to 'Day',      day_path, class: "nav-link"  %>
-            <%= link_to 'Week',     week_path, class: "nav-link"  %>
-        </nav>
-      </div>
-  </div>
-
   <body>
+    <%= tag.div(id: "Navigation") %>
     <%= yield %>
   </body>
 </html>
