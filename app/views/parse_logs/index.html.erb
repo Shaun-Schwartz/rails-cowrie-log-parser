@@ -1,15 +1,19 @@
 <div class="container">
 
   <div class="card">
-    <div class="line-chart">
-      <%= line_chart Log.group_by_hour_of_day(:created_at).count %>
-    </div>
+
     <div class="geo-chart">
       <%= geo_chart Log.group(:country).count %>
     </div>
 
-    <h6>Most seen IP addresses</h6>
+    <div class="line-chart">
+      <%= line_chart Log.group_by_hour_of_day(:created_at).count %>
+    </div>
+
+
+
     <div class="Table">
+
       <div class="Table-row Table-header">
         <div class="Table-row-item">Seen</div>
         <div class="Table-row-item">IP Address</div>
