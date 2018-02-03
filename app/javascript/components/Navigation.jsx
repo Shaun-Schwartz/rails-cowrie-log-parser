@@ -18,7 +18,7 @@ class Navigation extends Component {
       <Navbar color="dark" dark expand="sm">
         <NavbarBrand href="/"> / </NavbarBrand>
         <Collapse navbar>
-          <Nav className="ml-auto" navbar>
+          <Nav className="react-navbar ml-auto" navbar>
             <NavItem>
               <NavLink href="/">Home</NavLink>
             </NavItem>

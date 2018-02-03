@@ -1,17 +1,35 @@
 <div class="container">
 
   <div class="card">
-
-    <div class="geo-chart">
-      <%= geo_chart Log.group(:country).count %>
+    <div class="geo-chart-container">
+      <div class="selection-buttons">
+        <button type="button" class="btn btn-secondary btn-sm hour-button">Last Hour</button>
+        <button type="button" class="btn btn-secondary btn-sm 24-hours-button">24 hours</button>
+        <button type="button" class="btn btn-secondary btn-sm week-button">7 Days</button>
+      </div>
+      <div class="geo-chart hour">
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 1.hour).group(:country).count %>
+      </div>
+      <div class="geo-chart 24-hours hidden">
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 24.hours).group(:country).count %>
+      </div>
+      <div class="geo-chart week hidden">
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count %>
+      </div>
     </div>
 
-    <div class="line-chart">
-      <%= line_chart Log.group_by_hour_of_day(:created_at).count %>
-    </div>
 
-
-
+    <!-- <span>
+      <div class="line-chart hour" title="1 hour">
+        <%= column_chart Log.where("time >= ?", DateTime.now - 1.hour).group_by_minute(:time).count %>
+      </div>
+      <div class="line-chart 24-hours hidden" title="24 hours">
+        <%= column_chart Log.where("time >= ?", DateTime.now - 24.hours).group_by_hour_of_day(:time).count %>
+      </div>
+      <div class="line-chart week hidden" title="1 Week">
+        <%= column_chart Log.where("time >= ?", DateTime.now - 7.days).group_by_day_of_week(:time).count %>
+      </div>
+    </span> -->
     <div class="Table">
 
       <div class="Table-row Table-header">
@@ -20,7 +38,6 @@
         <div class="Table-row-item">Country</div>
       </div>
       <% @top_ips.each do |ip| %>
-
         <div class="Table-row">
           <div class="Table-row-item" data-header="Count"><%= ip.count %></div>
           <div class="Table-row-item" data-header="IP"> <%= link_to ip.ip_address, by_path(ip: ip.ip_address) %></div>
