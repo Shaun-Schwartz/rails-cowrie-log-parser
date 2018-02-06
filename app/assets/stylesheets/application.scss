@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
+ .hidden {
+   display: none;
+ }
  .react-navbar {
    padding-right: 50px;
  }
@@ -24,12 +27,15 @@
    padding: 10px;
    justify-content: space-around;
  }
+
  .geo-chart-container {
-   margin-bottom: 50px;
+   // margin-bottom: 50px;
+   // display: block;
+   // margin-left: auto;
+   // margin-right: auto;
  }
-.hidden {
-  display: none !important;
-}
+ .geo_chart {
+ }
 
  $light-color: #ffffff;
  $dark-color: #f2f2f2;

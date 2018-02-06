@@ -1,12 +1,13 @@
 <div class="container">
 
   <div class="card">
+    <div class="selection-buttons">
+      <button type="button" class="btn btn-secondary btn-sm hour-button">Last Hour</button>
+      <button type="button" class="btn btn-secondary btn-sm 24-hours-button">24 hours</button>
+      <button type="button" class="btn btn-secondary btn-sm week-button">7 Days</button>
+    </div>
+
     <div class="geo-chart-container">
-      <div class="selection-buttons">
-        <button type="button" class="btn btn-secondary btn-sm hour-button">Last Hour</button>
-        <button type="button" class="btn btn-secondary btn-sm 24-hours-button">24 hours</button>
-        <button type="button" class="btn btn-secondary btn-sm week-button">7 Days</button>
-      </div>
       <div class="geo-chart hour">
         <%= geo_chart Log.where("time >= ?", DateTime.now - 1.hour).group(:country).count %>
       </div>
@@ -17,7 +18,6 @@
         <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count %>
       </div>
     </div>
-
 
     <!-- <span>
       <div class="line-chart hour" title="1 hour">

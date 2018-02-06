@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const hour = $('.hour')
   const day = $('.24-hours')
   const week = $('.week')
-  
   $('.hour-button').click(function() {
     if (hour.attr('class').includes('hidden')) {
       hour.removeClass('hidden')
