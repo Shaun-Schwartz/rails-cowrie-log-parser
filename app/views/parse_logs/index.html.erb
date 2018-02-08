@@ -1,26 +1,34 @@
 <div class="container">
 
   <div class="card">
-
-    <div class="geo-chart">
-      <%= geo_chart Log.group(:country).count %>
+    <div class="selection-buttons">
+      <button type="button" class="btn btn-secondary btn-sm hour-button">Last Hour</button>
+      <button type="button" class="btn btn-secondary btn-sm 24-hours-button">24 hours</button>
+      <button type="button" class="btn btn-secondary btn-sm week-button">7 Days</button>
     </div>
 
-    <div class="line-chart">
-      <%= line_chart Log.group_by_hour_of_day(:created_at).count %>
+    <div class="geo-chart-container">
+      <div class="geo-chart hour">
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 1.hour).group(:country).count, width: "500px" %>
+      </div>
+      <div class="geo-chart 24-hours hidden">
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 24.hours).group(:country).count, width: "500px" %>
+      </div>
+      <div class="geo-chart week hidden">
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count, width: "500px" %>
+      </div>
     </div>
 
-
+    <%= column_chart Log.group_by_day_of_week(:created_at, format: "%a").count %>
 
     <div class="Table">
-
+      <h6>Top 10 IP addresses</h6>
       <div class="Table-row Table-header">
         <div class="Table-row-item">Seen</div>
         <div class="Table-row-item">IP Address</div>
         <div class="Table-row-item">Country</div>
       </div>
       <% @top_ips.each do |ip| %>
-
         <div class="Table-row">
           <div class="Table-row-item" data-header="Count"><%= ip.count %></div>
           <div class="Table-row-item" data-header="IP"> <%= link_to ip.ip_address, by_path(ip: ip.ip_address) %></div>

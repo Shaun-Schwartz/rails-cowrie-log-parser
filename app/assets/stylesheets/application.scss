@@ -13,44 +13,58 @@
  *= require_tree .
  *= require_self
  */
-
+ .hidden {
+   display: none;
+ }
+ .react-navbar {
+   padding-right: 50px;
+ }
  body {
-  background-color: #999DA0 !important;
+   background-color: #999DA0 !important;
  }
-
  .card{
-  border-radius: 0px !important;
-  padding: 10px;
+   border-radius: 0px !important;
+   padding: 10px;
+   justify-content: space-around;
  }
 
-$light-color: #ffffff;
-$dark-color: #f2f2f2;
+ .geo-chart-container {
+   margin-bottom: 50px;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+ }
+ .geo_chart {
+ }
 
-.Table {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  // border: 1px solid $dark-color;
-  font-size: 1rem;
-  margin: 0.5rem;
-  line-height: 1.5;
-}
-.Table-row {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  // align-items: flex-start;
-  &:nth-of-type(even) { background-color: $dark-color; }
-  &:nth-of-type(odd) { background-color: $light-color; }
-}
+ $light-color: #ffffff;
+ $dark-color: #f2f2f2;
 
-.Table-row-item {
-  width: 25%;
-  display: flex;
-  flex-flow: row nowrap;
-  flex-grow: 1;
-  flex-basis: 0;
-  padding: 0.1em;
-}
+ .Table {
+   display: flex;
+   flex-flow: column nowrap;
+   justify-content: space-between;
+   // border: 1px solid $dark-color;
+   font-size: 1rem;
+   margin: 0.5rem;
+   line-height: 1.5;
+ }
+ .Table-row {
+   width: 100%;
+   display: flex;
+   justify-content: flex-start;
+   // align-items: flex-start;
+   &:nth-of-type(even) { background-color: $dark-color; }
+   &:nth-of-type(odd) { background-color: $light-color; }
+ }
 
-@import 'bootstrap';
+ .Table-row-item {
+   width: 25%;
+   display: flex;
+   flex-flow: row nowrap;
+   flex-grow: 1;
+   flex-basis: 0;
+   padding: 0.1em;
+ }
+
+ @import 'bootstrap';

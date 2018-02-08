@@ -1,6 +1,6 @@
 # README
 
-A ruby and rails based project to parse logs from cowrie and make them more human readable.
+A ruby and rails based project to parse logs from Cowrie and make them more human readable and visualize the collected data in interesting ways. 
 
 Cowrie is a medium interaction SSH and Telnet honeypot designed to log brute force attacks and the shell interaction performed by the attacker.
 https://github.com/micheloosterhof/cowrie
