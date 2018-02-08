@@ -23,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const week = $('.week')
   $('.hour-button').click(function() {
     if (hour.attr('class').includes('hidden')) {
-      hour.removeClass('hidden')
+      hour.removeClass('hidden');
+      Chartkick.eachChart( function(chart) {
+        chart.redraw();
+      });
     }
     if (!day.attr('class').includes('hidden')) {
       day.addClass('hidden')
@@ -38,7 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
       hour.addClass('hidden')
     }
     if (day.attr('class').includes('hidden')) {
-      day.removeClass('hidden')
+      day.removeClass('hidden');
+      Chartkick.eachChart( function(chart) {
+        chart.redraw();
+      });
     }
     if (!week.attr('class').includes('hidden')) {
       week.addClass('hidden')
@@ -53,7 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
       day.addClass('hidden')
     }
     if (week.attr('class').includes('hidden')) {
-      week.removeClass('hidden')
+      week.removeClass('hidden');
+      Chartkick.eachChart( function(chart) {
+        chart.redraw();
+      });
     }
   })
 })

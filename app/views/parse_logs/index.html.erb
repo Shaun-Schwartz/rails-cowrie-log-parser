@@ -9,29 +9,20 @@
 
     <div class="geo-chart-container">
       <div class="geo-chart hour">
-        <%= geo_chart Log.where("time >= ?", DateTime.now - 1.hour).group(:country).count %>
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 1.hour).group(:country).count, width: "500px" %>
       </div>
       <div class="geo-chart 24-hours hidden">
-        <%= geo_chart Log.where("time >= ?", DateTime.now - 24.hours).group(:country).count %>
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 24.hours).group(:country).count, width: "500px" %>
       </div>
       <div class="geo-chart week hidden">
-        <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count %>
+        <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count, width: "500px" %>
       </div>
     </div>
 
-    <!-- <span>
-      <div class="line-chart hour" title="1 hour">
-        <%= column_chart Log.where("time >= ?", DateTime.now - 1.hour).group_by_minute(:time).count %>
-      </div>
-      <div class="line-chart 24-hours hidden" title="24 hours">
-        <%= column_chart Log.where("time >= ?", DateTime.now - 24.hours).group_by_hour_of_day(:time).count %>
-      </div>
-      <div class="line-chart week hidden" title="1 Week">
-        <%= column_chart Log.where("time >= ?", DateTime.now - 7.days).group_by_day_of_week(:time).count %>
-      </div>
-    </span> -->
-    <div class="Table">
+    <%= column_chart Log.group_by_day_of_week(:created_at, format: "%a").count %>
 
+    <div class="Table">
+      <h6>Top 10 IP addresses</h6>
       <div class="Table-row Table-header">
         <div class="Table-row-item">Seen</div>
         <div class="Table-row-item">IP Address</div>
