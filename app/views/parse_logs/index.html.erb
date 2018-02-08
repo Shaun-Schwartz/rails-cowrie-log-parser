@@ -18,8 +18,11 @@
         <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count, width: "500px" %>
       </div>
     </div>
-
-    <%= column_chart Log.group_by_day_of_week(:created_at, format: "%a").count %>
+    
+    <div class="Table">
+      <h6>Attacks by day of week</h6>
+      <%= column_chart Log.group_by_day_of_week(:created_at, format: "%a").count %>
+    </div>
 
     <div class="Table">
       <h6>Top 10 IP addresses</h6>
