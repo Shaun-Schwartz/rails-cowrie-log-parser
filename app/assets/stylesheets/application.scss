@@ -14,7 +14,7 @@
  *= require_self
  */
  .hidden {
-   display: none;
+   display: none !important;
  }
  .react-navbar {
    padding-right: 50px;
