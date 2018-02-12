@@ -69,8 +69,13 @@
 
 
     <div class="Table">
+      <h4 class="pt-6">All time</h4>
       <h6>Attacks by day of week</h6>
       <%= column_chart Log.group_by_day_of_week(:created_at, format: "%a").count %>
+    </div>
+    <div class="Table">
+      <h6>Number of Attacks by day (last 90 days)</h6>
+      <%= line_chart Log.where("time >= ?", DateTime.now - 90.days).group_by_day(:time).count %>
     </div>
 
 
