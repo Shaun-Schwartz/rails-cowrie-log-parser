@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   match "/delayed_job", to: DelayedJobWeb, anchor: false, via: [:get, :post]
+  get('/by/pcap/', { to: 'parse_logs#pcap', as: 'pcap'})
 
   get('/', { to: 'parse_logs#index', as: 'home' })
   get('/all', { to: 'parse_logs#all' })

@@ -41,6 +41,14 @@ class ParseLogsController < ApplicationController
     @logs = Log.where(ip_address: @ip_address).order(time: :desc)
   end
 
+  def pcap
+    @ip_address = params[:ip_address]
+    redirect_to by_path(ip: @ip_address)
+    running = system "ps aux | grep tcpdump"
+    # Disabled for now, may be best not to run in prod without user auth
+    # system "tcpdump -nni en0 -G 600 host #{@ip_address} -w ~/#{@ip_address}_#{DateTime.now}.pcap&"
+  end
+
   def check_jobs
     if Delayed::Job.count == 0
       ParseLogsJob.set(wait: 5.minutes).perform_later
