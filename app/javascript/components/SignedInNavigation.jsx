@@ -9,7 +9,7 @@ import {
   NavLink
 } from 'reactstrap';
 
-class Navigation extends Component {
+class SignedInNavigation extends Component {
   constructor (props) {
     super (props);
   }
@@ -36,7 +36,7 @@ class Navigation extends Component {
               <NavLink href="/week">Week</NavLink>
             </NavItem>
             <NavItem key='1'>
-              <NavLink href="/session/new">Sign In</NavLink>
+              <NavLink data-method="DELETE" href="/session">Sign Out</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -45,4 +45,4 @@ class Navigation extends Component {
   }
 }
 
-export {Navigation};
+export {SignedInNavigation};

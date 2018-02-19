@@ -1,0 +1,9 @@
+<div class="container" style="background-color: white; height:95vh">
+  <h3>Sign Up</h3>
+  <%= simple_form_for @user do |f| %>
+  <%= f.input :email, :required => false %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  <% end %>
+</div>

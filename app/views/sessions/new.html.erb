@@ -1,0 +1,10 @@
+<div class="container" style="background-color: white; height:95vh">
+  <h3>Sign In</h3>
+  <%= simple_form_for :session, url: session_path do |f| %>
+  <%= f.input :email, :required => false %>
+  <%= f.input :password, :required => false %>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  <% end %>
+  <br>
+  <small>Or <%= link_to 'Sign Up', new_user_path %></small>
+</div>

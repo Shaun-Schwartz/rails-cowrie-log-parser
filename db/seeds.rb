@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Create initial user
-PASSWORD = SecureRandom.hex(16)
+# PASSWORD = SecureRandom.hex(16)
+PASSWORD = 'password'
 EMAIL = 'something@example.com'
 
 User.where(email: EMAIL).destroy_all

@@ -44,10 +44,20 @@ class ParseLogsController < ApplicationController
 
   def pcap
     @ip_address = params[:ip_address]
-    redirect_to by_path(ip: @ip_address)
-    running = system "ps aux | grep tcpdump"
-    # Disabled for now, may be best not to run in prod without user auth
-    system "tcpdump -nni en0 -G 600 host #{@ip_address} -w ~/#{@ip_address}_#{DateTime.now}.pcap&"
+    @log_id = params[:id]
+    if user_signed_in?
+      capture_name = "#{@ip_address}_#{DateTime.now}.pcap"
+      system "tcpdump -nni en0 -G 600 host #{@ip_address} -w public/captures/#{capture_name} &"
+      pcap = Capture.new(name: capture_name, log_id: @log_id)
+      if pcap.save
+        redirect_to by_path(ip: @ip_address), notice: "Capture started"
+        p ("PCAP STARTED")
+      else
+        redirect_to by_path(ip: @ip_address), notice: "Capture could not be started"
+      end
+    else
+      redirect_to by_path(ip: @ip_address), alert: "Must be signed in"
+    end
   end
 
   def check_jobs

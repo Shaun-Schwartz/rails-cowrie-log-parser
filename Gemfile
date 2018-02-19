@@ -38,6 +38,7 @@ gem 'delayed_job_active_record'
 gem 'chartkick'
 gem 'groupdate'
 gem 'webpacker', '~> 3.0'
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

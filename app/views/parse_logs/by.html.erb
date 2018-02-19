@@ -4,10 +4,11 @@
   <% @logs.each do |log| %>
     <div class="card-block">
       <p class="card-text", style="margin: 15px;">
-
-      Time:</b> <%= log.time %> <br>
-      <small>IP: <%= log.ip_address %>
-      <%= link_to '  PCAP', {:controller => "parse_logs", :action => "pcap", :ip_address => log.ip_address}%></small><br>
+      Time: <%= log.time %> <br>
+      <small>IP: <%= log.ip_address %></small>
+      <% if user_signed_in? %>
+        <small><%= link_to '  Perform Packet Capture', {:controller => "parse_logs", :action => "pcap", :ip_address => log.ip_address, :id => log.id}%></small><br>
+      <% end %>
       <small>Username: <%= log.username %> </small><br>
       <small>Password: <%= log.password %> </small><br>
       <small>Log in attempt originated from:
@@ -22,8 +23,14 @@
         "flags/#{log.country}.png") != nil %>
         <%= image_tag "flags/#{log.country}.png",
             height: "20" %>
-      <% end %>
-
+      <% end %><br>
+      <small>
+        <% if Capture.where(log_id: log.id).present? %>
+          <% Capture.where(log_id: log.id).each do |file| %>
+          <%= link_to file.name, "public/captures/#{file.name}", download: file.name %><br>
+          <% end %>
+        <% end %>
+      </small>
       </p>
     </div>
   <% end %>

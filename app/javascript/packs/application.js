@@ -9,13 +9,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import {Navigation} from '../components/Navigation'
+import {SignedInNavigation} from '../components/SignedInNavigation'
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const navigationDiv = document.querySelector('#Navigation');
-  ReactDOM.render(
-    <Navigation />,
-    navigationDiv
-  )
+  ReactDOM.render(<Navigation />,navigationDiv)
+
+  const signedInDiv = document.querySelector('#SignedIn');
+  ReactDOM.render(<SignedInNavigation />,signedInDiv)
 
   // Show / hide charts on index page based on user selection
   const hour = $('.hour')
