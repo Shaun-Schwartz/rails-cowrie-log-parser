@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Create initial user
+PASSWORD = SecureRandom.hex(16)
+EMAIL = 'something@example.com'
+
+User.where(email: EMAIL).destroy_all
+
+User.create(
+  email: EMAIL,
+  password: PASSWORD
+)
+
+puts "Created #{User.count} user with email address: #{EMAIL} and password: #{PASSWORD}"
