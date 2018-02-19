@@ -1,5 +1,5 @@
 class ParseLogsController < ApplicationController
-  # require 'generate_log.rb'
+  # Make sure a job is queued
   before_action :check_jobs
 
   def index
@@ -47,10 +47,11 @@ class ParseLogsController < ApplicationController
     redirect_to by_path(ip: @ip_address)
     running = system "ps aux | grep tcpdump"
     # Disabled for now, may be best not to run in prod without user auth
-    # system "tcpdump -nni en0 -G 600 host #{@ip_address} -w ~/#{@ip_address}_#{DateTime.now}.pcap&"
+    system "tcpdump -nni en0 -G 600 host #{@ip_address} -w ~/#{@ip_address}_#{DateTime.now}.pcap&"
   end
 
   def check_jobs
+    # If there isn't a job queued, add one
     if Delayed::Job.count == 0
       ParseLogsJob.set(wait: 5.minutes).perform_later
     end
