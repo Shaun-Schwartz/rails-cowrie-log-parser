@@ -6,11 +6,33 @@
     <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag    'application' %>
+    <%= javascript_pack_tag    'application', :defer => "defer" %>
   </head>
 
   <body>
-    <div><%= tag.div(id: "Navigation") %></div>
+    <% if true %>
+      <%= tag.div(id: "Navigation", hidden: true ? user_signed_in? : None) %>
+      <%= tag.div(id: "SignedIn", hidden: true ? !user_signed_in? : None) %>
+    <% end %>
+
+    <div class="container">
+      <% if flash[:notice].present? %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= flash[:notice] || flash[:alert] %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <% elsif flash[:alert].present? %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= flash[:notice] || flash[:alert] %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+
     <%= yield %>
   </body>
 </html>
