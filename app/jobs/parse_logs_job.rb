@@ -5,8 +5,11 @@ class ParseLogsJob < ApplicationJob
   require 'json'
 
   def perform(*args)
-    file = './cowrie.json'
-    # file = '/home/shaun/cowrie/log/cowrie.json'
+    begin
+      file = '/home/shaun/cowrie/log/cowrie.json'
+    rescue
+      file = './cowrie.json'
+    end
     f = File.open(file, 'r:ISO-8859-1:UTF-8')
     # Check log timestamp against last db entry time
     last_log_time = Log.count > 0 ? Log.last.time : '0' # 0 needed if db is empty

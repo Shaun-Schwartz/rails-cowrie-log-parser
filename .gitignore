@@ -3,6 +3,7 @@ cowrie.json*
 ./cowrie.json*
 ../cowrie.json*
 cowrie.json
+/public/captures/*
 # Created by https://www.gitignore.io/api/ruby,macos,rails
 
 ### macOS ###
