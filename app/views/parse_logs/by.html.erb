@@ -27,7 +27,7 @@
       <small>
         <% if Capture.where(log_id: log.id).present? %>
           <% Capture.where(log_id: log.id).each do |file| %>
-          <%= link_to file.name, "public/captures/#{file.name}", download: file.name %><br>
+          <%= link_to file.name, "captures/#{file.name}", download: file.name %><br>
           <% end %>
         <% end %>
       </small>
