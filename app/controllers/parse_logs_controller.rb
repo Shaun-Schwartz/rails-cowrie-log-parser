@@ -47,7 +47,7 @@ class ParseLogsController < ApplicationController
     @log_id = params[:id]
     if user_signed_in?
       capture_name = "#{@ip_address}_#{DateTime.now}.pcap"
-      system "tcpdump -nni en0 -G 600 host #{@ip_address} -w public/captures/#{capture_name} &"
+      system "tcpdump -i eth0 -G 600 host #{@ip_address} -w public/captures/#{capture_name} &"
       pcap = Capture.new(name: capture_name, log_id: @log_id)
       if pcap.save
         redirect_to by_path(ip: @ip_address), notice: "Capture started"
