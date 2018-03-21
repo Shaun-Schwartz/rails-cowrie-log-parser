@@ -39,7 +39,7 @@ class ParseLogsController < ApplicationController
 
   def by
     @ip_address = params[:ip]
-    @logs = Log.where(ip_address: @ip_address).order(time: :desc)
+    @logs = Log.where(ip_address: @ip_address).order(time: :desc).paginate(:page => params[:page], :per_page => 500)
   end
 
   def pcap
