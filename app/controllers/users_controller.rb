@@ -7,11 +7,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      flash[:notice] = "Successfully created..."
+      session[:user_id] = @user.id
+      flash[:notice] = "User successfully created"
       redirect_to home_path
     else
       render :new, notice: "Could not create user"
-    end 
+    end
   end
 
   private
