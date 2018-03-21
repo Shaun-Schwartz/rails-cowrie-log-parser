@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-  <small> Number of entries: <%= @logs.count %></small>
+  <div class="count-entries"><small> Number of entries: <%= @logs.count %></small></div>
   <% @logs.each do |log| %>
     <div class="card-block">
       <p class="card-text", style="margin: 15px;">
@@ -32,7 +32,8 @@
       </p>
     </div>
   <% end %>
-
+    <div class="will-paginate">
+      <%= will_paginate @logs %>
+    </div>
   </div>
 </div>
-<%= will_paginate @logs %>

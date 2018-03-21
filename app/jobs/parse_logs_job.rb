@@ -5,10 +5,10 @@ class ParseLogsJob < ApplicationJob
   require 'json'
 
   def perform(*args)
-    begin
-      file = '/home/shaun/cowrie/log/cowrie.json'
-    rescue
-      file = './cowrie.json'
+    if File.exists?('/home/shaun/cowrie/log/cowrie.json')
+      file = '/home/shaun/cowrie/log/cowrie.json' # "Production" logs
+    else
+      file = './cowrie.json' # Dev logs
     end
     f = File.open(file, 'r:ISO-8859-1:UTF-8')
     # Check log timestamp against last db entry time

@@ -17,7 +17,7 @@ class Navigation extends Component {
   render() {
     return (
       <Navbar color="dark" dark expand="sm">
-        <NavbarBrand href="/"> / </NavbarBrand>
+        <NavbarBrand href="/"></NavbarBrand>
         <Collapse navbar>
           <Nav className="react-navbar ml-auto" navbar>
             <NavItem>

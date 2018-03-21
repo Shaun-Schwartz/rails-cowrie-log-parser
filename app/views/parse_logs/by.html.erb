@@ -1,6 +1,12 @@
 <div class="container">
   <div class="card">
-  <small> Showing <%= pluralize(@logs.count, 'entry') %> that include <%=@ip_address%></small>
+
+    <div class="card-block">
+      <div class="card-text", style="margin: 0px 0px -5px 15px;">
+        <small> Showing <%= pluralize(@logs.count, 'entry') %> that include <%=@ip_address%></small>
+      </div>
+    </div>
+
   <% @logs.each do |log| %>
     <div class="card-block">
       <p class="card-text", style="margin: 15px;">
@@ -34,6 +40,8 @@
       </p>
     </div>
   <% end %>
-
+    <div class="will-paginate">
+      <%= will_paginate @logs %>
+    </div>
   </div>
 </div>
