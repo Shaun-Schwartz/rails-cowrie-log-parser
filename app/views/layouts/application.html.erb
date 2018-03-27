@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cowrie Honeypot Log Prettifier</title>
+    <title>Cowrie Honeypot Parser</title>
     <%= csrf_meta_tags %>
     <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -10,10 +10,8 @@
   </head>
 
   <body>
-    <% if true %>
-      <%= tag.div(id: "Navigation", hidden: true ? user_signed_in? : None) %>
-      <%= tag.div(id: "SignedIn", hidden: true ? !user_signed_in? : None) %>
-    <% end %>
+    <%= tag.div(id: "Navigation", hidden: true ? user_signed_in? : None) %>
+    <%= tag.div(id: "SignedIn", hidden: true ? !user_signed_in? : None) %>
 
     <div class="container">
       <% if flash[:notice].present? %>
