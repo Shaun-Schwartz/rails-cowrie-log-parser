@@ -1,3 +1,4 @@
+require 'ipstack_api_key'
 class ParseLogsJob < ApplicationJob
   queue_as :default
   require 'net/http'
@@ -47,7 +48,8 @@ class ParseLogsJob < ApplicationJob
   end
 
   def geolocation(ip_address)
-    url = 'http://freegeoip.net/json/' + ip_address.to_s
+    api_key = ApiKey::key
+    url = 'http://api.ipstack.com/' + ip_address.to_s + '?access_key=' + api_key + '&output=json&legacy=1'
     response = open(url).read
     get_location_data = JSON.parse(response)
   end
