@@ -19,6 +19,9 @@ class ParseLogsController < ApplicationController
     @top_ips_week = Log.find_by_sql("SELECT COUNT(*), ip_address, region, country
                                 FROM logs WHERE(time > ( NOW()-INTERVAL '7 days')) GROUP BY(ip_address, region, country)
                                 ORDER BY COUNT(ip_address) DESC LIMIT 10;")
+    @top_ips_all = Log.find_by_sql("SELECT COUNT(*), ip_address, region, country
+                                FROM logs GROUP BY(ip_address, region, country)
+                                ORDER BY COUNT(ip_address) DESC LIMIT 10;")
   end
 
   def all

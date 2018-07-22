@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const hour = $('.hour')
   const day = $('.24-hours')
   const week = $('.week')
+  const all = $('.all')
+
   $('.hour-button').click(function() {
     if (hour.attr('class').includes('hidden')) {
       hour.removeClass('hidden');
@@ -26,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (!week.attr('class').includes('hidden')) {
       week.addClass('hidden')
+    }
+    if (!all.attr('class').includes('hidden')) {
+      all.addClass('hidden')
     }
   })
 
@@ -42,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!week.attr('class').includes('hidden')) {
       week.addClass('hidden')
     }
+    if (!all.attr('class').includes('hidden')) {
+      all.addClass('hidden')
+    }
   })
 
   $('.week-button').click(function() {
@@ -53,6 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (week.attr('class').includes('hidden')) {
       week.removeClass('hidden');
+      Chartkick.eachChart( function(chart) {
+        chart.redraw();
+      });
+    }
+    if (!all.attr('class').includes('hidden')) {
+      all.addClass('hidden')
+    }
+  })
+
+  $('.all-button').click(function() {
+    if (!hour.attr('class').includes('hidden')) {
+      hour.addClass('hidden')
+    }
+    if (!day.attr('class').includes('hidden')) {
+      day.addClass('hidden')
+    }
+    if (!week.attr('class').includes('hidden')) {
+      week.addClass('hidden')
+    }
+    if (all.attr('class').includes('hidden')) {
+      all.removeClass('hidden');
       Chartkick.eachChart( function(chart) {
         chart.redraw();
       });

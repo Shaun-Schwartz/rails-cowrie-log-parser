@@ -92,4 +92,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  API_KEYS = {"ipstack" => "6c102b9768b67af1fae7ce59080e8a28"}
 end

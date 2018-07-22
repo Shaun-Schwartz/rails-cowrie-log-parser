@@ -1,7 +1,7 @@
 Rails.application.configure do
     config.webpacker.check_yarn_integrity = true
 
-  
+
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -55,4 +55,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  API_KEYS = {"ipstack" => "6c102b9768b67af1fae7ce59080e8a28"}
+
 end

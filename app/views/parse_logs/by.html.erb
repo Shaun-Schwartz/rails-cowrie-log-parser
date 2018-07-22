@@ -11,17 +11,17 @@
     <div class="card-block">
       <p class="card-text", style="margin: 15px;">
       Time: <%= log.time %> <br>
-      <small>IP: <%= log.ip_address %></small>
+      <small>IP: <%= log.ip_address %></small><br>
       <% if user_signed_in? %>
         <small><%= link_to '  Perform Packet Capture', {:controller => "parse_logs", :action => "pcap", :ip_address => log.ip_address, :id => log.id}%></small><br>
       <% end %>
       <small>Username: <%= log.username %> </small><br>
       <small>Password: <%= log.password %> </small><br>
       <small>Log in attempt originated from:
-        <% if !log.region.empty? %>
+        <% if !log.region&.empty? %>
           <%= log.region %>,
         <% end %>
-        <% if !log.country.empty? %>
+        <% if !log&.country&.empty? %>
           <%= log.country %>
         <% end %>
       </small>

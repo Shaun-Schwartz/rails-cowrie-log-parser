@@ -1,4 +1,3 @@
-require "./app/jobs/ipstack_api_key"
 class ParseLogsJob < ApplicationJob
   queue_as :default
   require 'net/http'
@@ -24,7 +23,6 @@ class ParseLogsJob < ApplicationJob
           region = existingLog.region
           country = existingLog.country
         else
-        # Call geolocation function to make API call for geo data
           location = geolocation(jsonline['src_ip'])
           region = location['region_name']
           country = location['country_name']
@@ -48,7 +46,7 @@ class ParseLogsJob < ApplicationJob
   end
 
   def geolocation(ip_address)
-    api_key = ApiKey::ipstack_key()
+    api_key = API_KEYS["ipstack"]
     url = 'http://api.ipstack.com/' + ip_address.to_s + '?access_key=' + api_key + '&output=json&legacy=1'
     response = open(url).read
     get_location_data = JSON.parse(response)
