@@ -5,6 +5,7 @@
       <button type="button" class="btn btn-secondary btn-sm hour-button">Last Hour</button>
       <button type="button" class="btn btn-secondary btn-sm 24-hours-button">24 hours</button>
       <button type="button" class="btn btn-secondary btn-sm week-button">7 Days</button>
+      <button type="button" class="btn btn-secondary btn-sm all-button">All</button>
     </div>
 
     <div class="geo-chart-container">
@@ -16,6 +17,9 @@
       </div>
       <div class="geo-chart week hidden">
         <%= geo_chart Log.where("time >= ?", DateTime.now - 7.days).group(:country).count, width: "500px" %>
+      </div>
+      <div class="geo-chart all hidden">
+        <%= geo_chart Log.group(:country).count, width: "500px" %>
       </div>
     </div>
 
@@ -67,11 +71,24 @@
       <% end %>
     </div>
 
+    <div class="Table all hidden">
+      <h6>Top <%= @top_ips_all.count %> IP addresses in the last 7 days</h6>
+      <div class="Table-row Table-header">
+        <div class="Table-row-item">Seen</div>
+        <div class="Table-row-item">IP Address</div>
+        <div class="Table-row-item">Country</div>
+      </div>
+      <% @top_ips_all.each do |ip| %>
+      <div class="Table-row">
+        <div class="Table-row-item" data-header="Count"><%= ip.count %></div>
+        <div class="Table-row-item" data-header="IP"> <%= link_to ip.ip_address, by_path(ip: ip.ip_address) %></div>
+        <div class="Table-row-item" data-header="Country"><%= ip.country %></div>
+      </div>
+      <% end %>
+    </div>
 
     <div class="Table">
       <h4 class="pt-6">All time</h4>
-      <h6>Attacks by day of week</h6>
-      <%= column_chart Log.group_by_day_of_week(:created_at, format: "%a").count %>
     </div>
     <div class="Table">
       <h6>Number of Attacks by day (last 90 days)</h6>
