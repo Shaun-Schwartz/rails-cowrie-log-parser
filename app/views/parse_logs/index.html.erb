@@ -88,11 +88,11 @@
     </div>
 
     <div class="Table">
-      <h4 class="pt-6">All time</h4>
+      <h4 class="pt-6">Last 90 days</h4>
     </div>
     <div class="Table">
-      <h6>Number of Attacks by day (last 90 days)</h6>
-      <%= line_chart Log.where("time >= ?", DateTime.now - 90.days).group_by_day(:time).count %>
+      <h6>Number of Attacks per day</h6>
+      <%= line_chart Log.where("time >= ?", DateTime.now - 180.days).group_by_day(:time).count %>
     </div>
 
 
