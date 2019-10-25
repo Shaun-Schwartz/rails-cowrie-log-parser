@@ -22,13 +22,8 @@
           <%= log.country %>
         <% end %>
       </small>
-      <% if Rails.application.assets.find_asset(
-        "flags/#{log.country}.png") != nil %>
-        <%= image_tag "flags/#{log.country}.png",
+      <%= image_tag "flags/#{log&.country}.png",
             height: "20" %>
-
-      <% end %>
-
       </p>
     </div>
   <% end %>
