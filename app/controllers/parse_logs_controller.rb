@@ -1,6 +1,4 @@
 class ParseLogsController < ApplicationController
-  # Make sure a job is queued
-  before_action :check_jobs
 
   def index
     @last_5_minutes = Log.where(time: (Time.now - 5.minutes)..Time.now).count
@@ -62,12 +60,4 @@ class ParseLogsController < ApplicationController
       redirect_to by_path(ip: @ip_address), alert: "Must be signed in"
     end
   end
-
-  def check_jobs
-    # If there isn't a job queued, add one
-    if Delayed::Job.count == 0
-      ParseLogsJob.set(wait: 5.minutes).perform_later
-    end
-  end
-
 end
