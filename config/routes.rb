@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   match "/delayed_job", to: DelayedJobWeb, anchor: false, via: [:get, :post]
   get('/by/pcap/', { to: 'parse_logs#pcap', as: 'pcap'})
 

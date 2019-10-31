@@ -1,0 +1,9 @@
+---
+:dynamic: true
+:concurrency: 2
+:verbose: false
+:pidfile: tmp/pids/sidekiq.pid
+
+:schedule:
+  ParseLogsJob:
+    every: '10m'

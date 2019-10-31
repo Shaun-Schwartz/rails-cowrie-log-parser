@@ -56,6 +56,4 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  API_KEYS = {"ipstack" => "6c102b9768b67af1fae7ce59080e8a28"}
-
 end

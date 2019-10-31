@@ -1,5 +1,5 @@
-class ParseLogsJob < ApplicationJob
-  queue_as :default
+class ParseLogsJob
+  include Sidekiq::Worker
   require 'net/http'
   require 'open-uri'
   require 'json'
@@ -46,7 +46,7 @@ class ParseLogsJob < ApplicationJob
   end
 
   def geolocation(ip_address)
-    api_key = API_KEYS["ipstack"]
+    api_key = ENV.fetch("IPSTACK_API_KEY")
     url = 'http://api.ipstack.com/' + ip_address.to_s + '?access_key=' + api_key + '&output=json&legacy=1'
     response = open(url).read
     get_location_data = JSON.parse(response)
@@ -59,5 +59,4 @@ class ParseLogsJob < ApplicationJob
       corresponding_log.save
     end
   end
-  ParseLogsJob.set(wait:5.minutes).perform_later
 end
