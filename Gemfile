@@ -31,14 +31,14 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'delayed_job_active_record'
-gem 'chartkick'
+gem 'chartkick', '>= 3.2'
 gem 'groupdate'
-gem 'webpacker', '~> 3.0'
-gem 'simple_form'
+gem 'webpacker'
+gem 'simple_form', '~> 5.0'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 

@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+config.webpacker.check_yarn_integrity = false
+
    config.webpacker.check_yarn_integrity = false
   # Don't throw error if asset is not found in pipeline
   config.assets.unknown_asset_fallback = true
