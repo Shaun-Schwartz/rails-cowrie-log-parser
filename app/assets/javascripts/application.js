@@ -18,3 +18,4 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+Chartkick.configure({language: "en", mapsApiKey: "AIzaSyAQ8srew71QUpj7jhP2K8dwK9Xql65Xy7k"})
