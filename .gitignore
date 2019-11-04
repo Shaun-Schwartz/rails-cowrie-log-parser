@@ -1,5 +1,4 @@
 config/secrets.yml
-app/jobs/ipstack_api_key.rb
 .cowrie.json*
 cowrie.json*
 ./cowrie.json*
