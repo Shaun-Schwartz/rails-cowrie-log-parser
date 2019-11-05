@@ -16,37 +16,32 @@ class ParseLogsJob
     f.each do |line|
       # Parse each line as json and remove characters that cause errors
       if !line.include?('cowrie.command.success')
-        begin
-          jsonline = JSON.parse(line.gsub('\u0000', ''))
-          if (jsonline['eventid'].include? 'cowrie.login') && (jsonline['protocol'] = 'ssh') && (jsonline['timestamp'] > last_log_time)
-            # If log exists grab geolocation data from it rather than making API call
-            if Log.find_by ip_address:jsonline['src_ip']
-              existingLog = Log.find_by ip_address:jsonline['src_ip']
-              region = existingLog.region
-              country = existingLog.country
-            else
-              location = geolocation(jsonline['src_ip'])
-              region = location['region_name']
-              country = location['country_name']
-            end
-            # Create db entry
-            Log.create(time: jsonline['timestamp'].gsub('\u0000', ''),
-                      status: jsonline['eventid'],
-                      protocol: jsonline['protocol'],
-                      ip_address: jsonline['src_ip'],
-                      message: jsonline['message'].gsub('\u0000', ''),
-                      username: jsonline['username'].gsub('\u0000', ''),
-                      password: jsonline['password'].gsub('\u0000', ''),
-                      region: region,
-                      country: country,
-                      session_id: jsonline['session'])
-          # Call get_session_length function to get session length in seconds
-          elsif jsonline['eventid'] = 'cowrie.session.closed'
-            get_session_length(jsonline['session'], jsonline['duration'])
+        jsonline = JSON.parse(line.gsub('\u0000', ''))
+        if (jsonline['eventid'].include? 'cowrie.login') && (jsonline['protocol'] = 'ssh') && (jsonline['timestamp'] > last_log_time)
+          # If log exists grab geolocation data from it rather than making API call
+          if Log.find_by ip_address:jsonline['src_ip']
+            existingLog = Log.find_by ip_address:jsonline['src_ip']
+            region = existingLog.region
+            country = existingLog.country
+          else
+            location = geolocation(jsonline['src_ip'])
+            region = location['region_name']
+            country = location['country_name']
           end
-        rescue Exception => e
-          puts e.message
-          puts e.backtrace.inspect
+          # Create db entry
+          Log.create(time: jsonline['timestamp'].gsub('\u0000', ''),
+                    status: jsonline['eventid'],
+                    protocol: jsonline['protocol'],
+                    ip_address: jsonline['src_ip'],
+                    message: jsonline['message'].gsub('\u0000', ''),
+                    username: jsonline['username'].gsub('\u0000', ''),
+                    password: jsonline['password'].gsub('\u0000', ''),
+                    region: region,
+                    country: country,
+                    session_id: jsonline['session'])
+        # Call get_session_length function to get session length in seconds
+        elsif jsonline['eventid'] = 'cowrie.session.closed'
+          get_session_length(jsonline['session'], jsonline['duration'])
         end
       end
     end
