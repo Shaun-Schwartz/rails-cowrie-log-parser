@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191025212724) do
+ActiveRecord::Schema.define(version: 20200216043807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,10 @@ ActiveRecord::Schema.define(version: 20191025212724) do
     t.datetime "updated_at", null: false
     t.string "session_id"
     t.float "session_length"
+    t.index ["ip_address", "region", "country"], name: "index_logs_on_ip_address_and_region_and_country"
     t.index ["ip_address"], name: "index_logs_on_ip_address"
     t.index ["session_id"], name: "index_logs_on_session_id"
+    t.index ["time"], name: "index_logs_on_time"
   end
 
   create_table "users", force: :cascade do |t|
