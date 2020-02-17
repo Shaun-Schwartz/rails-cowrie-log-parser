@@ -10,14 +10,12 @@ class GeolocationJob
                       .first
     new_log = Log.find(new_log_id)
     if existing_log&.country
-      binding.pry
       region = existing_log.region
       country = existing_log.country
     else
       location = Geolocation.new(ip_address).from_ip
       region = location['region_name']
       country = location['country_name']
-      binding.pry
     end
     new_log.update(region: region, country: country)
   end
