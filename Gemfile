@@ -41,12 +41,12 @@ gem 'webpacker'
 gem 'simple_form', '~> 5.0'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'dotenv-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'delayed_job_web'
-  gem 'dotenv-rails'
   gem 'hirb'
   gem 'pry'
 end
