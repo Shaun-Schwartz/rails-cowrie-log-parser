@@ -12,10 +12,13 @@ class Log < ApplicationRecord
               session_id: rawjson['session'])
   end
 
-  def self.parse_log_line(line, time)
-    ((line['eventid'].include? 'cowrie.login') &&
-                (line['protocol'] = 'ssh') &&
-                (line['timestamp'] > time)) ||
-                line['eventid'] = 'cowrie.session.closed'
+  def self.parse_log_line(jsonline, time)
+    (jsonline['eventid'].include? 'cowrie.login') &&
+    (jsonline['protocol'] = 'ssh') &&
+    (jsonline['timestamp'].to_datetime > time)
+  end
+
+  def line_include_ssh_login_attempt(line)
+    (line['eventid'].include?('cowrie.login') && line['system'].include?('SSHService'))
   end
 end

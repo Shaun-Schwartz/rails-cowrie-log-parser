@@ -12,15 +12,18 @@ class ParseLogsJob
     last_log_time = Log.last&.time || 0 # 0 needed if db is empty
     f.each do |line|
       # Parse each line as json and remove characters that cause errors
-      next unless line.include?('cowrie.command.success')
+      next if line.include?('cowrie.command.success')
       jsonline = JSON.parse(line.gsub('\u0000', ''))
-      next unless Log.parse_log_line(jsonline, last_log_time)
-      Log.create_from_raw_json(jsonline)
-      if jsonline['eventid'] = 'cowrie.session.closed'
+      if Log.parse_log_line(jsonline, last_log_time)
+        new_log = Log.create_from_raw_json(jsonline)
+        if jsonline['eventid'] = 'cowrie.session.closed'
+          get_session_length(jsonline['session'], jsonline['duration'])
+        end
+        source_ip = jsonline['src_ip']
+        GeolocationJob.perform_async(source_ip, new_log.id)
+      elsif jsonline['eventid'] = 'cowrie.session.closed'
         get_session_length(jsonline['session'], jsonline['duration'])
       end
-      source_ip = jsonline['src_ip']
-      GeolocationJob.perform_async(source_ip)
     end
   end
 
