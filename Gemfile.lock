@@ -70,6 +70,10 @@ GEM
       delayed_job (> 2.0.3)
       rack-protection (>= 1.5.5)
       sinatra (>= 1.4.4)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     et-orbi (1.2.2)
       tzinfo
@@ -233,6 +237,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   delayed_job_active_record
   delayed_job_web
+  dotenv-rails
   groupdate
   hirb
   jbuilder (~> 2.5)
