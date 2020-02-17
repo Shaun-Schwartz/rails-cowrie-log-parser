@@ -5,60 +5,29 @@ class ParseLogsJob
   require 'json'
 
   def perform(*args)
-    if File.exists?('/home/shaun/cowrie/log/cowrie.json')
-      file = '/home/shaun/cowrie/log/cowrie.json' # "Production" logs
-    else
-      file = './cowrie.json' # Dev logs
-    end
+    file = ENV.fetch('LOG_FILE_PATH')
+    return unless File.exists?(file)
     f = File.open(file, 'r:ISO-8859-1:UTF-8')
     # Check log timestamp against last db entry time
-    last_log_time = Log.count > 0 ? Log.last.time : '0' # 0 needed if db is empty
+    last_log_time = Log.last&.time || 0 # 0 needed if db is empty
     f.each do |line|
       # Parse each line as json and remove characters that cause errors
-      if !line.include?('cowrie.command.success')
-        jsonline = JSON.parse(line.gsub('\u0000', ''))
-        if (jsonline['eventid'].include? 'cowrie.login') && (jsonline['protocol'] = 'ssh') && (jsonline['timestamp'] > last_log_time)
-          # If log exists grab geolocation data from it rather than making API call
-          if Log.find_by ip_address:jsonline['src_ip']
-            existingLog = Log.find_by ip_address:jsonline['src_ip']
-            region = existingLog.region
-            country = existingLog.country
-          else
-            location = geolocation(jsonline['src_ip'])
-            region = location['region_name']
-            country = location['country_name']
-          end
-          # Create db entry
-          Log.create(time: jsonline['timestamp'].gsub('\u0000', ''),
-                    status: jsonline['eventid'],
-                    protocol: jsonline['protocol'],
-                    ip_address: jsonline['src_ip'],
-                    message: jsonline['message'].gsub('\u0000', ''),
-                    username: jsonline['username'].gsub('\u0000', ''),
-                    password: jsonline['password'].gsub('\u0000', ''),
-                    region: region,
-                    country: country,
-                    session_id: jsonline['session'])
-        # Call get_session_length function to get session length in seconds
-        elsif jsonline['eventid'] = 'cowrie.session.closed'
-          get_session_length(jsonline['session'], jsonline['duration'])
-        end
+      next unless line.include?('cowrie.command.success')
+      jsonline = JSON.parse(line.gsub('\u0000', ''))
+      next unless Log.parse_log_line(jsonline, last_log_time)
+      Log.create_from_raw_json(jsonline)
+      if jsonline['eventid'] = 'cowrie.session.closed'
+        get_session_length(jsonline['session'], jsonline['duration'])
       end
+      source_ip = jsonline['src_ip']
+      GeolocationJob.perform_async(source_ip)
     end
   end
 
-  def geolocation(ip_address)
-    api_key = ENV.fetch("IPSTACK_API_KEY")
-    url = 'http://api.ipstack.com/' + ip_address.to_s + '?access_key=' + api_key + '&output=json&legacy=1'
-    response = open(url).read
-    get_location_data = JSON.parse(response)
-  end
   def get_session_length(session_id, session_length)
     # Find log by session_id, if found update session_length column for log
-    corresponding_log = Log.find_by session_id: session_id || nil
-    if corresponding_log&.present?
-      corresponding_log.session_length = session_length
-      corresponding_log.save
-    end
+    corresponding_log = Log.find_by(session_id: session_id)
+    return unless corresponding_log.present?
+    corresponding_log.update(session_length: session_length)
   end
 end

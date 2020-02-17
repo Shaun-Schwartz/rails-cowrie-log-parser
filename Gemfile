@@ -48,6 +48,7 @@ group :development, :test do
   gem 'delayed_job_web'
   gem 'dotenv-rails'
   gem 'hirb'
+  gem 'pry'
 end
 
 group :development do
