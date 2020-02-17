@@ -7,3 +7,5 @@
 :schedule:
   ParseLogsJob:
     every: '10m'
+  FixGeolocationJob:
+    every: '24h'

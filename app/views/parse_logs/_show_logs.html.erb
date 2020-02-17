@@ -22,8 +22,10 @@
           <%= log.country %>
         <% end %>
       </small>
-      <%= image_tag "flags/#{log&.country}.png",
-            height: "20" %>
+      <% if log.country %>
+        <%= image_tag "flags/#{log.country}.png",
+              height: "20" %>
+      <% end %>
       </p>
     </div>
   <% end %>
